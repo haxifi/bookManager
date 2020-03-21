@@ -1,0 +1,14 @@
+.card-text  {
+    font-size: initial;
+    line-height: initial;
+    color: black;
+    font-family: monospace;
+}
+
+.card-title {
+    color: black;
+}
+
+.card-img-top{
+    width: 50%!important;
+}
