@@ -8,7 +8,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons'
 class Book extends Component {
     constructor(props) {
         super(props);
-        this.state = this.props.data;
+       this.state = this.props.data;
     }
 
     changeValue = (e) => {
@@ -22,26 +22,21 @@ class Book extends Component {
     };
 
 
-
-    shouldComponentUpdate(nextProps, nextState, nextContext) {
+    componentWillReceiveProps(nextProps, nextContext) {
         this.state = nextProps.data;
-        console.log(nextProps.data);
-        console.log(this.state);
-        return this.render();
     }
 
-
-
     render() {
+        const {thumbnailUrl,title, shortDescription} = this.state;
         return (
             <Card className="stock col-md-2 p-4 card-property" style={{width: '18rem'}}>
                 <div>
-                    <Card.Img variant="top" src={this.state.thumbnailUrl} />
+                    <Card.Img variant="top" src={thumbnailUrl} />
                 </div>
                 <Card.Body>
-                    <Card.Title>{this.state.title}</Card.Title>
+                    <Card.Title>{title}</Card.Title>
                     <Card.Text>
-                        {this.state.shortDescription}
+                        {shortDescription}
                     </Card.Text>
                     <div className="edit-position">
                         <hr />

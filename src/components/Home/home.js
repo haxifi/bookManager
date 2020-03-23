@@ -21,7 +21,7 @@ class Home extends Component {
 
 
     setKeySearch = (key) => {
-        let result = this.state.listOfAllBooks.filter(book => book.title.toLowerCase().indexOf(key.toLowerCase()) > 1);
+        let result = this.state.listOfAllBooks.filter(book => book.title.toLowerCase().indexOf(key.toLowerCase()) !== -1);
         if(result.length > 0) this.setState({listOfBooks: result});
     };
 
