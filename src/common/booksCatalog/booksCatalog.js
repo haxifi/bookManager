@@ -15,7 +15,7 @@ class BooksCatalog extends Component {
             <div className="col-xl-12">
                 <section className="row">
                     {
-                      this.props.books.map( (item, index) => <Book key={index} title={item.title} text={item.shortDescription} favicon={item.thumbnailUrl}  />)
+                      this.props.books.map( (item, index) => <Book key={index}  data={item} />)
                     }
                 </section>
             </div>
