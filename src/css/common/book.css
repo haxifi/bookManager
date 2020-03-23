@@ -5,6 +5,18 @@
     font-family: monospace;
 }
 
+.edit-position {
+    position: absolute;
+    top: 80%;
+    right: 0;
+    width: 100%;
+}
+
+
+.card-property{
+    height: 780px;
+}
+
 .card-title {
     color: black;
 }

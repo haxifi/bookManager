@@ -31,7 +31,7 @@ class Book extends Component {
 
     render() {
         return (
-            <Card className="stock col-md-2 p-4" style={{ width: '18rem' }}>
+            <Card className="stock col-md-2 p-4 card-property" style={{width: '18rem'}}>
                 <div>
                     <Card.Img variant="top" src={this.state.favicon} />
                 </div>
@@ -40,7 +40,10 @@ class Book extends Component {
                     <Card.Text>
                         {this.state.text}
                     </Card.Text>
-                    <Button variant="warning" onClick={this.changeValue}><FontAwesomeIcon icon={faEdit} /> Update</Button>
+                    <div className="edit-position">
+                        <hr />
+                        <Button variant="warning" onClick={this.changeValue}><FontAwesomeIcon icon={faEdit} /> Update</Button>
+                    </div>
                 </Card.Body>
             </Card>
         );
