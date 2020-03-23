@@ -1,3 +1,12 @@
 .searchButton {
     width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+@media screen and (max-width: 1200px) {
+    .searchButton {
+        position: inherit;
+    }
 }

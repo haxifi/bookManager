@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import axios from "axios";
+import '../../css/component/home.css';
 import SearchBar from "../../common/searchBar/searchBar";
 import BooksCatalog from "../../common/booksCatalog/booksCatalog";
 import PropTypes from 'prop-types';
+
 
 class Home extends Component {
 
@@ -13,6 +15,7 @@ class Home extends Component {
 
     componentDidMount() {
         const serverUrl = this.props.serverURL;
+
         axios.get(serverUrl).then((res) => {
             let data = res.data;
             this.setState({listOfBooks: data, listOfAllBooks: data})
@@ -29,15 +32,17 @@ class Home extends Component {
 
     render() {
         return (
-            <React.Fragment>
+            <div className="container">
                 <h1>Manage You Books</h1>
 
                 {/* get param from SearchBar */}
                 <SearchBar book={this.setKeySearch} />
 
+                <hr className="split-component" />
+
                 {/* Set param to BooksCatalog */}
                 <BooksCatalog books={this.state.listOfBooks} />
-            </React.Fragment>
+            </div>
         );
     }
 }

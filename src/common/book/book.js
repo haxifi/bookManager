@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import '../../css/common/book.css'
-import {Card, Button} from 'react-bootstrap';
+import {Card, Button, Row, Col} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faBook } from '@fortawesome/free-solid-svg-icons'
+import ModalEditItem from "../modalEditItem/modalEditItem";
 
 
 class Book extends Component {
@@ -22,14 +23,19 @@ class Book extends Component {
     };
 
 
+
+
     componentWillReceiveProps(nextProps, nextContext) {
         this.state = nextProps.data;
     }
 
+
+
+
     render() {
         const {thumbnailUrl,title, shortDescription} = this.state;
         return (
-            <Card className="stock col-md-2 p-4 card-property" style={{width: '18rem'}}>
+            <Card className="stock col-md-4 p-4 card-property" style={{width: '18rem'}}>
                 <div>
                     <Card.Img variant="top" src={thumbnailUrl} />
                 </div>
@@ -40,7 +46,11 @@ class Book extends Component {
                     </Card.Text>
                     <div className="edit-position">
                         <hr />
-                        <Button variant="warning" onClick={this.changeValue}><FontAwesomeIcon icon={faEdit} /> Update</Button>
+                        <Row>
+                            <Col><Button className="update-button" variant="warning" onClick={this.changeValue}><FontAwesomeIcon icon={faBook} /> Update</Button></Col>
+                            <Col><ModalEditItem data={this.state} /></Col>
+                        </Row>
+
                     </div>
                 </Card.Body>
             </Card>
