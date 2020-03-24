@@ -10,23 +10,28 @@ function ModalEditItem(props) {
 
     const [show, setShow] = useState(false);
 
-    const {title,shortDescription,thumbnailUrl} = props.data;
+    const [title, setTitle] = useState(props.data.title);
+    const [thumbnailUrl, setThumbnailUrl] = useState(props.data.thumbnailUrl);
+    const [shortDescription, setShortDescription] = useState(props.data.shortDescription);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const setTitle = (e) => {
-        console.log(e.target.value);
-    };
 
-    const setThumbnailUrl = (e) => {
-        console.log(e.target.value);
-    };
 
-    const setShortDescription = (e) => {
-        console.log(e.target.value);
+    const onChangeText = (e) => {
+        switch (e.target.name) {
+            case 'title':
+                setTitle(e.target.value);
+                break;
+            case 'shortDescription':
+                setShortDescription(e.target.value);
+                break;
+            case 'thumbnailUrl':
+                setThumbnailUrl(e.target.value);
+                break
+        }
     };
-
 
     const saveAndClose = () => {
         console.log("Save Books: " + title);
@@ -41,15 +46,15 @@ function ModalEditItem(props) {
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Modifica libro {title}</Modal.Title>
+                    <Modal.Title>Modifica libro {props.data.title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form.Group>
-                        <Form.Control size="lg"  onChange={setTitle} type="text" value={title} placeholder="Title Of Book" />
+                        <Form.Control size="lg"  name="title" onChange={onChangeText} type="text" value={title} placeholder="Title Of Book" />
                         <br />
-                        <Form.Control size="sm" onChange={setThumbnailUrl} type="text" value={thumbnailUrl} placeholder="Favicon Images" />
+                        <Form.Control size="sm"  name="thumbnailUrl" onChange={onChangeText} type="text" value={thumbnailUrl} placeholder="Favicon Images" />
                         <br />
-                        <Form.Control onChange={setShortDescription} className="text-area-property" value={shortDescription} as="textarea" placeholder="Description of book" rows="3" />
+                        <Form.Control name="shortDescription" onChange={onChangeText} className="text-area-property" value={shortDescription} as="textarea" placeholder="Description of book" rows="3" />
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
