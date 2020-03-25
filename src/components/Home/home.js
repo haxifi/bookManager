@@ -33,8 +33,6 @@ class Home extends Component {
     render() {
         return (
             <div className="container">
-                <h1>Manage You Books</h1>
-
                 {/* get param from SearchBar */}
                 <SearchBar book={this.setKeySearch} />
 

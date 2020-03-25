@@ -9,27 +9,52 @@ import ModalEditItem from "../modalEditItem/modalEditItem";
 class Book extends Component {
     constructor(props) {
         super(props);
-       this.state = this.props.data;
+        this.setDefaultState = this.setDefaultState.bind(this);
+        this.state = this.props.data;
     }
 
-    changeValue = (e) => {
+    resetValue = (e) => {
         e.preventDefault();
-        console.log("ISBN: "+ this.state.isbn);
+
+        const {title,shortDescription, thumbnailUrl } = this.props.data;
+
         this.setState({
-            title: 'Unlocking Android',
-            shortDescription: 'Unlocking Android: A Developer\'s Guide provides concise, hands-on instruction for the Android operating system and development tools. This book teaches important architectural concepts in a straightforward writing style and builds on this with practical and useful examples throughout.',
-            thumbnailUrl: 'https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/ableson.jpg'
+            title: title,
+            shortDescription: shortDescription,
+            thumbnailUrl: thumbnailUrl
         })
     };
-
-
-
 
     componentWillReceiveProps(nextProps, nextContext) {
         this.state = nextProps.data;
     }
 
 
+    setTitle = (title) => {
+      this.setState({title: title});
+    };
+
+    setShortDescription = (shortDescription) => {
+        this.setState({shortDescription: shortDescription});
+    };
+
+    setThumbnailUrl = (thumbnailUrl) => {
+        this.setState({thumbnailUrl:thumbnailUrl});
+    };
+
+    componentDidMount() {
+        this.setDefaultState();
+    }
+
+
+    setDefaultState() {
+        const {thumbnailUrl,title, shortDescription} = this.state;
+
+        if(title === undefined) this.setState({title: "No title"});
+        if(shortDescription === undefined) this.setState({shortDescription: "No description"});
+        if(thumbnailUrl === undefined) this.setState({thumbnailUrl: "https://vignette.wikia.nocookie.net/cutie-sunflower/images/3/36/Broken_Book_Body.png/revision/latest?cb=20190428005104"});
+
+    }
 
 
     render() {
@@ -47,8 +72,8 @@ class Book extends Component {
                     <div className="edit-position">
                         <hr />
                         <Row>
-                            <Col><Button className="update-button" variant="warning" onClick={this.changeValue}><FontAwesomeIcon icon={faBook} /> Update</Button></Col>
-                            <Col><ModalEditItem data={this.state} /></Col>
+                            <Col><Button className="update-button" variant="warning" onClick={this.resetValue}><FontAwesomeIcon icon={faBook} /> Reset</Button></Col>
+                            <Col><ModalEditItem setTitle={this.setTitle} setShortDescription={this.setShortDescription}  setThumbnailUrl={this.setThumbnailUrl}  data={this.state} /></Col>
                         </Row>
 
                     </div>
@@ -57,5 +82,7 @@ class Book extends Component {
         );
     }
 }
+
+
 
 export default Book;

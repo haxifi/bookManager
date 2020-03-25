@@ -34,7 +34,11 @@ function ModalEditItem(props) {
     };
 
     const saveAndClose = () => {
-        console.log("Save Books: " + title);
+        props.setTitle(title);
+        props.setShortDescription(shortDescription);
+        props.setThumbnailUrl(thumbnailUrl);
+
+        setShow(false);
     };
 
 

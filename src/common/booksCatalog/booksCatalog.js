@@ -8,8 +8,6 @@ class BooksCatalog extends Component {
         super(props);
     }
 
-
-
     render() {
         return (
             <div className="col-xl-12">

@@ -1,3 +1,8 @@
 .split-component {
     background-color: white;
 }
+
+/*Override */
+.container {
+    margin-top: 10px;
+}
