@@ -30,6 +30,7 @@ class myBooksServer(BaseHTTPRequestHandler):
     def print_book(self):
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
+        self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
         # return 'books.json' content
         self.wfile.write(self.readBooks('books.json'))
@@ -48,7 +49,7 @@ class myBooksServer(BaseHTTPRequestHandler):
     #Handler for the GET requests
     def do_GET(self):
         try:
-            print "OK"
+            print "Get all Books"
             content_authorization = self.headers['Authorization'].split(' ') # Remove Bearer from token
             # ast.literal_eval  remove `u` from json
             param = ast.literal_eval(json.dumps(jwt.decode(content_authorization[1], self.SECRET_JWT_KEY, algorithms=['HS256'])))
@@ -79,11 +80,18 @@ class myBooksServer(BaseHTTPRequestHandler):
         post_data = self.rfile.read(content_length)
         param = json.loads(post_data.decode('utf-8'))
 
+        print param
+
         if param["username"] == self.DEFAULT_USER_LOGIN and param["password"] == self.DEFAULT_PASS_LOGIN:
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.send_header('Access-Control-Allow-Methods', 'GET, OPTIONS, POST')
+            self.send_header("Access-Control-Allow-Headers", "X-Requested-With")
+            self.send_header("Access-Control-Allow-Headers", "Content-Type")
             self.end_headers()
             self.wfile.write(json.dumps(response))
+            self.processRequest()
             self.close_connection
 
 

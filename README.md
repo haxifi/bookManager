@@ -38,7 +38,7 @@ To build project
 
 #### How to bypass CORS
 Install 
-<a href="https://chrome.google.com/webstore/detail/moesif-orign-cors-changer/digfbfaphojjndkpccljibejjbppifbc" target="_black">***Moesif Orign & CORS Changer***</a> on your browser
+<a target="_blank" href="https://chrome.google.com/webstore/detail/moesif-orign-cors-changer/digfbfaphojjndkpccljibejjbppifbc" target="_black">***Moesif Orign & CORS Changer***</a> on your browser
 
 ##### Books Api source 
 https://github.com/bvaughn/infinite-list-reflow-examples

@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import '../../css/common/modalEditItem.css';
 import {Button, Modal, Form} from 'react-bootstrap';
-import PropTypes from 'prop-types';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit} from "@fortawesome/free-solid-svg-icons";
 

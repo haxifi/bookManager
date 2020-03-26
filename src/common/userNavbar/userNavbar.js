@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Navbar} from 'react-bootstrap';
+import ModalLoginUser from "../modalLoginUser/modalLoginUser";
 
 class UserNavbar extends Component {
     constructor(props) {
@@ -29,7 +30,7 @@ class UserNavbar extends Component {
                             {
                                 (!this.state.asLogged) &&
                                     <React.Fragment>
-                                        COMPONENT TO LOGIN HERE
+                                        <ModalLoginUser />
                                     </React.Fragment>
                             }
 

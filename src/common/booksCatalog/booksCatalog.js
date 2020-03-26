@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import '../../css/common/booksCatalog.css';
 import Book from "../book/book";
 
 
@@ -13,8 +14,15 @@ class BooksCatalog extends Component {
             <div className="col-xl-12">
                 <section className="row">
                     {
-                      this.props.books.map( (item, index) => <Book key={index}  data={item} />)
+                        localStorage.getItem("asLogged") && this.props.books.map( (item, index) => <Book key={index}  data={item} />)
                     }
+                    {
+                        !localStorage.getItem("asLogged") &&
+                            <div className="not-logged-box">
+                                <h1>You are not logged !</h1>
+                            </div>
+                    }
+
                 </section>
             </div>
         );

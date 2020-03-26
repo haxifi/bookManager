@@ -9,7 +9,11 @@ class App extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {listOfBooks: [], listOfAllBooks: []}
+
+        localStorage.setItem("baseURL", "http://localhost:8080");
+
+        //localStorage.setItem("asLogged", "false");
+        //localStorage.setItem("tokenJwt", "");
     }
 
     render() {
@@ -17,7 +21,7 @@ class App extends Component {
             <div className="App">
                 <UserNavbar title="Manage You book" />
                 <header className="App-header">
-                    <Home serverURL="http://localhost:8080/" />
+                    <Home  />
                 </header>
             </div>
         );

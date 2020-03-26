@@ -10,11 +10,11 @@ class Home extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {listOfBooks: [], listOfAllBooks: []}
+        this.state = {listOfBooks: [], listOfAllBooks: []};
     }
 
     componentDidMount() {
-        const serverUrl = this.props.serverURL;
+        let serverUrl = localStorage.getItem("baseURL");
 
         axios.get(serverUrl).then((res) => {
             let data = res.data;
@@ -27,7 +27,6 @@ class Home extends Component {
         let result = this.state.listOfAllBooks.filter(book => book.title.toLowerCase().indexOf(key.toLowerCase()) !== -1);
         if(result.length > 0) this.setState({listOfBooks: result});
     };
-
 
 
     render() {
