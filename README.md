@@ -14,7 +14,7 @@ _____________________________________________
 ### Build and run application
 
 Get Project:
-```https://github.com/dev-slashers/bookManager.git bookmanager```
+```git clone https://github.com/dev-slashers/bookManager.git bookmanager```
 
 To install dependancy
 ```yarn install```
@@ -27,8 +27,13 @@ To build project
 
 
 ### Run local API Server
+#####Install Python Dependancy
 
 ```cd resources```
+
+Run <a href="https://pip.pypa.io/en/stable/installing/">pip</a>
+
+``pip install -r requirements.txt``
 
 Launch server 
 ```python server.py```
