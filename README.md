@@ -27,16 +27,14 @@ To build project
 
 
 ### Run local API Server
-#####Install Python Dependancy
 
+- Enter in
 ```cd resources```
 
-Run <a href="https://pip.pypa.io/en/stable/installing/">pip</a>
-
+- Install Python Dependancy Run <a href="https://pip.pypa.io/en/stable/installing/">pip</a>
 ``pip install -r requirements.txt``
 
-Launch server 
-```python server.py```
+- Launch server  ```python server.py```
 
 #### How to bypass CORS
 Install 
