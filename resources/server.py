@@ -16,6 +16,16 @@ class myBooksServer(BaseHTTPRequestHandler):
     DEFAULT_PASS_LOGIN = "password"
 
 
+    def setHeader(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'application/json')
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, OPTIONS, POST')
+        self.send_header("Access-Control-Allow-Headers", "X-Requested-With")
+        self.send_header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization")
+        self.end_headers()
+
+
     # Read JSON file
     def readBooks(self, books):
         with open(books) as file:
@@ -28,10 +38,7 @@ class myBooksServer(BaseHTTPRequestHandler):
 
     #read and get books
     def print_book(self):
-        self.send_response(200)
-        self.send_header('Content-type', 'application/json')
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.end_headers()
+        self.setHeader()
         # return 'books.json' content
         self.wfile.write(self.readBooks('books.json'))
         self.close_connection
@@ -62,38 +69,43 @@ class myBooksServer(BaseHTTPRequestHandler):
             self.expired_token("Token expired")
 
 
+    def do_OPTIONS(self):
+        self.setHeader()
+        self.close_connection
+
+
     # Handle for the POST requests
     def do_POST(self):
-
         token_param = {
             "user_id": 6, # Random id
             "exp": self.exp_date(1)
         }
 
-        response = {
-            "success": 1,
-            "token": jwt.encode(token_param, self.SECRET_JWT_KEY, algorithm='HS256'),
-            "message": "login success"
-        }
+
 
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
         param = json.loads(post_data.decode('utf-8'))
 
+        # To Debug
         print param
 
+        self.setHeader()
         if param["username"] == self.DEFAULT_USER_LOGIN and param["password"] == self.DEFAULT_PASS_LOGIN:
-            self.send_response(200)
-            self.send_header('Content-type', 'application/json')
-            self.send_header('Access-Control-Allow-Origin', '*')
-            self.send_header('Access-Control-Allow-Methods', 'GET, OPTIONS, POST')
-            self.send_header("Access-Control-Allow-Headers", "X-Requested-With")
-            self.send_header("Access-Control-Allow-Headers", "Content-Type")
-            self.end_headers()
-            self.wfile.write(json.dumps(response))
-            self.processRequest()
-            self.close_connection
+            self.wfile.write(json.dumps({
+                "success": 1,
+                "user": "Turboli S.",
+                "token": jwt.encode(token_param, self.SECRET_JWT_KEY, algorithm='HS256'),
+                "message": "login success"
+            }))
+        else:
+            self.wfile.write(json.dumps({
+                "success": 0,
+                "message": "login failed"
+            }))
 
+        #self.processRequest()
+        self.close_connection
 
 
 try:

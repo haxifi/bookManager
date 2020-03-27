@@ -1,20 +1,42 @@
 import React, {useState} from 'react';
 import axios from "axios";
-import  {Button, Modal,Form} from 'react-bootstrap';
+import  {Button, Modal,Form, Alert} from 'react-bootstrap';
 
-function ModalLoginUser() {
+function ModalLoginUser(props) {
 
     const [show, setShow] = useState(false);
 
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [username, setUsername] = useState("admin");
+    const [password, setPassword] = useState("password");
 
+    const [failLogin, setFailLogin] = useState(false);
+    const [failMessage, setFailMessage] = useState("");
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     const loginButton = (e) => {
         e.preventDefault();
+
+        axios.post(localStorage.getItem("baseURL"),
+            {"username": username, "password": password},
+            {headers: {'Content-type': 'application/json'}
+            }).then((res) => {
+                console.log(res);
+                if(res.data.success) {
+                    setFailLogin(false);
+                    localStorage.setItem("tokenJwt", res.data.token);
+                    localStorage.setItem("loggedUser", res.data.user);
+                    localStorage.setItem("asLogged", "true");
+                    setShow(false);
+                    props.loggedStatus(true);
+                }else{
+                    setFailLogin(true);
+                    setFailMessage(res.data.message);
+                }
+
+        });
+
         console.log("Post to localhost");
     };
 
@@ -33,6 +55,14 @@ function ModalLoginUser() {
                     <Modal.Title>Login Form</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+
+                    {
+                        failLogin &&
+                        <Alert variant="danger">
+                            {failMessage}
+                        </Alert>
+                    }
+
                     <Form>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Control value={username} name="username" onChange={onChangeText} type="text" placeholder="Enter Username" />

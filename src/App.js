@@ -9,19 +9,21 @@ class App extends Component {
 
     constructor(props) {
         super(props);
-
+        this.state = {asLogged: false};
         localStorage.setItem("baseURL", "http://localhost:8080");
-
-        //localStorage.setItem("asLogged", "false");
-        //localStorage.setItem("tokenJwt", "");
     }
+
+    asLogged = (logged) => {
+        this.setState({asLogged: logged});
+    };
+
 
     render() {
         return (
             <div className="App">
-                <UserNavbar title="Manage You book" />
+                <UserNavbar logged={this.asLogged} title="Manage You book" />
                 <header className="App-header">
-                    <Home  />
+                    <Home  logged={this.state.asLogged} />
                 </header>
             </div>
         );

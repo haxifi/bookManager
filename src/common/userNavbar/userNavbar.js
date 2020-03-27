@@ -12,6 +12,16 @@ class UserNavbar extends Component {
 
     }
 
+
+    setLogged = (logged) => {
+        this.setState({asLogged: logged});
+        this.props.logged(logged);
+    };
+
+    logOut = (e) => {
+        e.preventDefault();
+        console.log("Logout");
+    };
     render() {
         return (
             <React.Fragment>
@@ -23,14 +33,14 @@ class UserNavbar extends Component {
                             {
                                 this.state.asLogged &&
                                 <React.Fragment>
-                                    Signed in as: <a href="#">Salvatore Turboli</a>
+                                    Signed in as: <b>{localStorage.getItem("loggedUser")}</b> - <a href="#" onClick={this.logOut}>Logout</a>
                                 </React.Fragment>
                             }
 
                             {
                                 (!this.state.asLogged) &&
                                     <React.Fragment>
-                                        <ModalLoginUser />
+                                        <ModalLoginUser loggedStatus={this.setLogged} />
                                     </React.Fragment>
                             }
 

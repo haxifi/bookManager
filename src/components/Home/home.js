@@ -10,18 +10,41 @@ class Home extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {listOfBooks: [], listOfAllBooks: []};
+        this.getAllBooks = this.getAllBooks.bind(this);
+        this.state = {listOfBooks: [], listOfAllBooks: [], asLogged: props.logged};
     }
 
     componentDidMount() {
-        let serverUrl = localStorage.getItem("baseURL");
-
-        axios.get(serverUrl).then((res) => {
-            let data = res.data;
-            this.setState({listOfBooks: data, listOfAllBooks: data})
-        });
+        this.getAllBooks();
     }
 
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        console.log("I recived new props");
+        console.log(nextProps);
+
+        this.state.asLogged = nextProps.logged;
+        this.getAllBooks();
+    }
+
+
+    getAllBooks() {
+        console.log(this.state);
+        if(this.state.asLogged) {
+            let serverUrl = localStorage.getItem("baseURL");
+
+            console.log(localStorage.getItem("tokenJwt"));
+
+            axios.get(serverUrl,{
+                headers: {
+                    'Authorization' : 'Bearer ' + localStorage.getItem("tokenJwt")
+                }
+            }).then((res) => {
+                let data = res.data;
+                this.setState({listOfBooks: data, listOfAllBooks: data})
+            });
+        }
+    };
 
     setKeySearch = (key) => {
         let result = this.state.listOfAllBooks.filter(book => book.title.toLowerCase().indexOf(key.toLowerCase()) !== -1);
