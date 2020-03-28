@@ -18,10 +18,7 @@ class UserNavbar extends Component {
         this.props.logged(logged);
     };
 
-    logOut = (e) => {
-        e.preventDefault();
-        console.log("Logout");
-    };
+
     render() {
         return (
             <React.Fragment>
@@ -33,7 +30,7 @@ class UserNavbar extends Component {
                             {
                                 this.state.asLogged &&
                                 <React.Fragment>
-                                    Signed in as: <b>{localStorage.getItem("loggedUser")}</b> - <a href="#" onClick={this.logOut}>Logout</a>
+                                    Signed in as: <b>{localStorage.getItem("loggedUser")}</b> - <a href={localStorage.getItem("baseURL")}>Logout</a>
                                 </React.Fragment>
                             }
 

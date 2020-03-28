@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
 import axios from "axios";
-import  {Button, Modal,Form, Alert} from 'react-bootstrap';
+import  {Button,FormLabel,Modal,Form, Alert} from 'react-bootstrap';
 
 function ModalLoginUser(props) {
 
     const [show, setShow] = useState(false);
 
-    const [username, setUsername] = useState("admin");
-    const [password, setPassword] = useState("password");
+    const [username, setUsername] = useState(undefined);
+    const [password, setPassword] = useState(undefined);
 
     const [failLogin, setFailLogin] = useState(false);
-    const [failMessage, setFailMessage] = useState("");
+    const [failMessage, setFailMessage] = useState(undefined);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -18,7 +18,7 @@ function ModalLoginUser(props) {
     const loginButton = (e) => {
         e.preventDefault();
 
-        axios.post(localStorage.getItem("baseURL"),
+        axios.post(localStorage.getItem("apiURL"),
             {"username": username, "password": password},
             {headers: {'Content-type': 'application/json'}
             }).then((res) => {
@@ -70,6 +70,11 @@ function ModalLoginUser(props) {
 
                         <Form.Group controlId="formBasicPassword">
                             <Form.Control value={password} name="password" onChange={onChangeText} type="password" placeholder="Password" />
+                        </Form.Group>
+                        <Form.Group>
+                            <FormLabel>
+                                Default is: username: <b>admin</b> and password: <b>password</b>
+                            </FormLabel>
                         </Form.Group>
 
                         <Button style={{width: '100%'}} onClick={loginButton} variant="primary" type="submit">

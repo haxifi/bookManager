@@ -41,6 +41,8 @@ function ModalEditItem(props) {
     };
 
 
+
+    console.log(props.data);
     return (
         <React.Fragment>
             <Button className="edit-button" variant="primary" onClick={handleShow}>
