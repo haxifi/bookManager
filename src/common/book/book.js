@@ -25,9 +25,16 @@ class Book extends Component {
         })
     };
 
-    componentWillReceiveProps(nextProps, nextContext) {
-        this.state = nextProps.data;
+    static getDerivedStateFromProps(props, state) {
+        if(state !== props.data) {
+            return props.data
+        }else {
+            return  null;
+        }
     }
+
+
+
 
 
     setTitle = (title) => {

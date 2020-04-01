@@ -10,40 +10,50 @@ class Home extends Component {
 
     constructor(props) {
         super(props);
-        this.getAllBooks = this.getAllBooks.bind(this);
-        this.state = {listOfBooks: [], listOfAllBooks: [], asLogged: props.logged};
+        this.state = {
+            listOfBooks: [], listOfAllBooks: [], asLogged: props.logged
+        };
     }
 
     componentDidMount() {
-        this.getAllBooks();
+        if(this.state.asLogged)  this.getAllBooks();
     }
 
-
-    componentWillReceiveProps(nextProps, nextContext) {
-        console.log("I recived new props");
-        console.log(nextProps);
-
-        this.state.asLogged = nextProps.logged;
-        this.getAllBooks();
-    }
-
-
-    getAllBooks() {
-        console.log(this.state);
-        if(this.state.asLogged) {
-            let serverUrl = localStorage.getItem("apiURL");
-
-            console.log(localStorage.getItem("tokenJwt"));
-
-            axios.get(serverUrl,{
-                headers: {
-                    'Authorization' : 'Bearer ' + localStorage.getItem("tokenJwt")
-                }
-            }).then((res) => {
-                let data = res.data;
-                this.setState({listOfBooks: data, listOfAllBooks: data})
-            });
+    static getDerivedStateFromProps(props, state) {
+        if(props.logged !== state.asLogged) {
+            return {
+                asLogged: props.logged
+            }
+        }else {
+            return  null;
         }
+    }
+
+
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(this.state.asLogged) {
+            if(this.state !== prevState) this.getAllBooks();
+        }
+    }
+
+
+    getAllBooks = () => {
+        console.log("getAllBooks");
+
+        let serverUrl = localStorage.getItem("apiURL");
+        axios.get(serverUrl,{
+            headers: {
+                'Authorization' : 'Bearer ' + localStorage.getItem("tokenJwt")
+            }
+        }).then((res) => {
+            let data = res.data;
+            console.log(data);
+            console.log(this.state.listOfBooks);
+
+            if(this.state.listOfBooks.length !== data.length) this.setState({listOfBooks: data, listOfAllBooks: data})
+        });
+
     };
 
     setKeySearch = (key) => {
@@ -58,6 +68,7 @@ class Home extends Component {
                 {/* get param from SearchBar */}
                 <SearchBar book={this.setKeySearch} />
 
+                {/*To Divide SearchBar from BooksCatalog*/}
                 <hr className="split-component" />
 
                 {/* Set param to BooksCatalog */}

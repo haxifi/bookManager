@@ -6,11 +6,11 @@ function ModalLoginUser(props) {
 
     const [show, setShow] = useState(false);
 
-    const [username, setUsername] = useState(undefined);
-    const [password, setPassword] = useState(undefined);
+    const [username, setUsername] = useState("admin");
+    const [password, setPassword] = useState("password");
 
     const [failLogin, setFailLogin] = useState(false);
-    const [failMessage, setFailMessage] = useState(undefined);
+    const [failMessage, setFailMessage] = useState("");
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -22,7 +22,6 @@ function ModalLoginUser(props) {
             {"username": username, "password": password},
             {headers: {'Content-type': 'application/json'}
             }).then((res) => {
-                console.log(res);
                 if(res.data.success) {
                     setFailLogin(false);
                     localStorage.setItem("tokenJwt", res.data.token);
@@ -37,7 +36,6 @@ function ModalLoginUser(props) {
 
         });
 
-        console.log("Post to localhost");
     };
 
     const onChangeText = (e) => {
@@ -47,9 +45,7 @@ function ModalLoginUser(props) {
 
     return (
         <React.Fragment>
-
-            <a href="#" onClick={handleShow}>Login</a>
-
+            <a href="/#" onClick={handleShow}>Login</a>
             <Modal show={show} onHide={handleClose} animation={false}>
                 <Modal.Header closeButton>
                     <Modal.Title>Login Form</Modal.Title>

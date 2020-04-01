@@ -28,7 +28,9 @@ function ModalEditItem(props) {
                 break;
             case 'thumbnailUrl':
                 setThumbnailUrl(e.target.value);
-                break
+                break;
+            default:
+                console.log("No item to edit");
         }
     };
 
@@ -42,7 +44,7 @@ function ModalEditItem(props) {
 
 
 
-    console.log(props.data);
+
     return (
         <React.Fragment>
             <Button className="edit-button" variant="primary" onClick={handleShow}>
