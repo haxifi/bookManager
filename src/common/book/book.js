@@ -25,14 +25,6 @@ class Book extends Component {
     };
 
 
-    static getDerivedStateFromProps(props, state) {
-        if(props.data !== state) {
-            return props.data
-        }else{
-            return  null;
-        }
-    }
-
     resetValue = (e) => {
         e.preventDefault();
 
@@ -56,7 +48,7 @@ class Book extends Component {
                 <Card.Body>
                     <Card.Title>{title}</Card.Title>
                     <Card.Text>
-                        {shortDescription}
+                        {shortDescription.length >= 250 ? (shortDescription.substring(0,250) + "[...]"): shortDescription}
                     </Card.Text>
                     <div className="edit-position">
                         <hr />

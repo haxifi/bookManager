@@ -38,7 +38,7 @@ class BooksCatalog extends Component {
                     {
                         !JSON.parse(localStorage.getItem("asLogged")) &&
                             <div className="not-logged-box">
-                                <h1>You are not logged !</h1>
+                                <h3>Make login to view books</h3>
                             </div>
                     }
 

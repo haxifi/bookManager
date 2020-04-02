@@ -14,6 +14,10 @@ class SearchBar extends Component {
         this.props.book(this.state.bookSearch);
     };
 
+    onKeySearch = (e) => {
+        if(e.key === 'Enter') this.props.book(this.state.bookSearch);
+    };
+
     setBookSearch = (e) => {
         this.setState({bookSearch: e.target.value});
     };
@@ -24,11 +28,11 @@ class SearchBar extends Component {
             <Container>
                 <Row>
                     <Col xl={10}>
-                        <Form.Control onChange={this.setBookSearch} value={this.state.bookSearch} type="text" placeholder="Books Name" />
+                        <Form.Control onChange={this.setBookSearch} onKeyPress={this.onKeySearch} value={this.state.bookSearch} type="text" placeholder="Books Name" />
                     </Col>
 
                     <Col xl={2}>
-                        <Button className="searchButton" onClick={this.searchBooks} variant="primary">Search</Button>
+                        <Button name="search-btn" className="searchButton" onClick={this.searchBooks} variant="primary">Search</Button>
                     </Col>
                 </Row>
             </Container>
