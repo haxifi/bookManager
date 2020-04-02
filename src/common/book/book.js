@@ -9,33 +9,8 @@ import ModalEditItem from "../modalEditItem/modalEditItem";
 class Book extends Component {
     constructor(props) {
         super(props);
-        this.setDefaultState = this.setDefaultState.bind(this);
         this.state = this.props.data;
     }
-
-    resetValue = (e) => {
-        e.preventDefault();
-
-        const {title,shortDescription, thumbnailUrl } = this.props.data;
-
-        this.setState({
-            title: title,
-            shortDescription: shortDescription,
-            thumbnailUrl: thumbnailUrl
-        })
-    };
-
-    static getDerivedStateFromProps(props, state) {
-        if(state !== props.data) {
-            return props.data
-        }else {
-            return  null;
-        }
-    }
-
-
-
-
 
     setTitle = (title) => {
       this.setState({title: title});
@@ -49,19 +24,26 @@ class Book extends Component {
         this.setState({thumbnailUrl:thumbnailUrl});
     };
 
-    componentDidMount() {
-        this.setDefaultState();
+
+    static getDerivedStateFromProps(props, state) {
+        if(props.data !== state) {
+            return props.data
+        }else{
+            return  null;
+        }
     }
 
+    resetValue = (e) => {
+        e.preventDefault();
 
-    setDefaultState() {
-        const {thumbnailUrl,title, shortDescription} = this.state;
+        const {title,shortDescription, thumbnailUrl } = this.props.data;
 
-        if(title === undefined) this.setState({title: "No title"});
-        if(shortDescription === undefined) this.setState({shortDescription: "No description"});
-        if(thumbnailUrl === undefined) this.setState({thumbnailUrl: "https://vignette.wikia.nocookie.net/cutie-sunflower/images/3/36/Broken_Book_Body.png/revision/latest?cb=20190428005104"});
-
-    }
+        this.setState({
+            title: title,
+            shortDescription: shortDescription,
+            thumbnailUrl: thumbnailUrl
+        })
+    };
 
 
     render() {

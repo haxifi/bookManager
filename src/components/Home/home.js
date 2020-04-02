@@ -11,13 +11,10 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            listOfBooks: [], listOfAllBooks: [], asLogged: props.logged
+            listOfBooks: [], listOfAllBooks: [], asLogged: props.logged, search: false
         };
     }
 
-    componentDidMount() {
-        if(this.state.asLogged)  this.getAllBooks();
-    }
 
     static getDerivedStateFromProps(props, state) {
         if(props.logged !== state.asLogged) {
@@ -29,11 +26,9 @@ class Home extends Component {
         }
     }
 
-
-
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(this.state.asLogged) {
-            if(this.state !== prevState) this.getAllBooks();
+            if(this.state !== prevState && !this.state.search) this.getAllBooks();
         }
     }
 
@@ -48,9 +43,6 @@ class Home extends Component {
             }
         }).then((res) => {
             let data = res.data;
-            console.log(data);
-            console.log(this.state.listOfBooks);
-
             if(this.state.listOfBooks.length !== data.length) this.setState({listOfBooks: data, listOfAllBooks: data})
         });
 
@@ -58,7 +50,7 @@ class Home extends Component {
 
     setKeySearch = (key) => {
         let result = this.state.listOfAllBooks.filter(book => book.title.toLowerCase().indexOf(key.toLowerCase()) !== -1);
-        if(result.length > 0) this.setState({listOfBooks: result});
+        if(result.length > 0) this.setState({listOfBooks: result, search: true});
     };
 
 

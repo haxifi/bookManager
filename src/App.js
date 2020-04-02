@@ -12,7 +12,7 @@ class App extends Component {
         this.state = {asLogged: false};
 
         let host = "192.168.0.8";
-
+        localStorage.setItem("asLogged", this.state.asLogged);
         localStorage.setItem("apiURL", "http://"+ host +":8080");
         localStorage.setItem("baseURL", "http://"+ host +":3000");
     }

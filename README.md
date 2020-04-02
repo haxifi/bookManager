@@ -13,16 +13,16 @@ _____________________________________________
 
 ### Build and run application
 
-Get Project:
+- To get project:
 ```git clone https://github.com/dev-slashers/bookManager.git bookmanager```
 
-To install dependancy
+- To install dependancy
 ```yarn install```
 
-To run 
+- To run 
 ```npm start```
 
-To build project
+- To build project
 ```npm build```
 
 
